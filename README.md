@@ -1,24 +1,58 @@
-# README
+# Movies
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a simple rails api, the goal of this project is to learn a little bit
+about how rails works and how to do:
 
-Things you may want to cover:
+* Migrations
+* Models
+* Controllers
+* Scopes
+* Unit tests
+* And more
 
-* Ruby version
+# Schema
 
-* System dependencies
+---
+Movie
+---
+id: number
 
-* Configuration
+title: string
 
-* Database creation
+description: text
 
-* Database initialization
+director_id: number
 
-* How to run the test suite
+---
+Director
+---
+id: number
 
-* Services (job queues, cache servers, search engines, etc.)
+name: string
 
-* Deployment instructions
+---
+Actor
+---
+id: number
 
-* ...
+name: string
+
+---
+MovieActor
+---
+id: number
+
+movie_id: number
+
+actor_id: number
+
+---
+Reviews
+---
+id: number
+
+movie_id: number
+
+start: number
+
+
