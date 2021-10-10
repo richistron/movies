@@ -88,4 +88,18 @@ RSpec.describe "V1::Movies", type: :request do
       expect(body['title'].first).to match("can't be blank")
     end
   end
+
+  describe 'destroy' do
+    let(:movie) { Movie.last }
+
+    it '200' do
+      delete "/v1/movies/#{movie.id}"
+      expect(response).to have_http_status(204)
+    end
+
+    it '400' do
+      delete '/v1/movies/999999'
+      expect(response).to have_http_status(404)
+    end
+  end
 end

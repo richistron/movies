@@ -1,29 +1,35 @@
 class V1::MoviesController < ApplicationController
-  before_action :find_movie, only: [:show, :update]
+  before_action :find_movie, only: [:show, :update, :destroy]
 
   def index
-    render json: json_response(Movie.all)
+    render json: json_response(Movie.all), status: :ok
   end
 
   def show
-    render json: json_response(@movie)
+    render json: json_response(@movie), status: :ok
   end
 
   def create
     movie = Movie.new movie_params
     if movie.save
-      render status: 201, json: json_response(movie)
+      render status: :created, json: json_response(movie)
     else
-      render status: 400, json: movie.errors
+      render status: :bad_request, json: movie.errors
     end
   end
 
   def update
     if @movie.update movie_params
-      render status: 200, json: json_response(@movie)
+      render status: :ok, json: json_response(@movie)
     else
-      render status: 400, json: @movie.errors
+      render status: :bad_request, json: @movie.errors
     end
+  end
+
+  def destroy
+    @movie.casts.each { |cast| cast.destroy }
+    @movie.destroy
+    render status: :no_content
   end
 
   private
