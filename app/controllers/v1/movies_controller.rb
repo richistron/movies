@@ -1,5 +1,7 @@
 class V1::MoviesController < ApplicationController
+  # include ActionController::HttpAuthentication::Token::ControllerMethods
   before_action :find_movie, only: [:show, :update, :destroy]
+  # before_action :authenticate, except: [:index, :show]
 
   def index
     render json: json_response(Movie.all), status: :ok
@@ -53,4 +55,10 @@ class V1::MoviesController < ApplicationController
       except: [:director_id, :created_at, :updated_at]
     )
   end
+
+  # def authenticate
+  #   authenticate_or_request_with_http_token do |token|
+  #     token == '123'
+  #   end
+  # end
 end
