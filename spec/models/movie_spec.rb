@@ -24,4 +24,18 @@ RSpec.describe Movie, type: :model do
   it 'valid' do
     expect(movie).to be_valid
   end
+
+  describe 'actors' do
+    let(:actor) { create :actor }
+    let(:cast) { create :cast }
+
+    it 'actors through casts' do
+      expect(movie.save).to be_truthy
+      cast.actor = actor
+      cast.movie = movie
+      cast.save
+      movie.reload
+      expect(movie.actors.first.name).to eq('Michael Keaton')
+    end
+  end
 end
