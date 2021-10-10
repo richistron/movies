@@ -38,7 +38,7 @@ id: number
 name: string
 
 ---
-ActorMovie
+Cast
 ---
 id: number
 
