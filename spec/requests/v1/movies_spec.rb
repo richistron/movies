@@ -63,4 +63,29 @@ RSpec.describe "V1::Movies", type: :request do
       expect(body['title'].first).to match("can't be blank")
     end
   end
+
+  describe 'update' do
+    let(:movie) { Movie.last }
+
+    it '200' do
+      patch "/v1/movies/#{movie.id}", params: {
+        title: 'Edward Scissorhands 2',
+        description: 'Foo bar',
+      }
+      expect(response).to have_http_status(200)
+    end
+
+    it '400' do
+      patch "/v1/movies/#{movie.id}", params: {
+        title: nil,
+        description: nil,
+        director_id: nil
+      }
+      expect(response).to have_http_status(400)
+      body = JSON.parse(response.body)
+      expect(body['director'].first).to match('must exist')
+      expect(body['description'].first).to match("can't be blank")
+      expect(body['title'].first).to match("can't be blank")
+    end
+  end
 end

@@ -1,5 +1,5 @@
 class V1::MoviesController < ApplicationController
-  before_action :find_movie, only: [:show]
+  before_action :find_movie, only: [:show, :update]
 
   def index
     render json: json_response(Movie.all)
@@ -15,6 +15,14 @@ class V1::MoviesController < ApplicationController
       render status: 201, json: json_response(movie)
     else
       render status: 400, json: movie.errors
+    end
+  end
+
+  def update
+    if @movie.update movie_params
+      render status: 200, json: json_response(@movie)
+    else
+      render status: 400, json: @movie.errors
     end
   end
 
