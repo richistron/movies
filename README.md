@@ -38,21 +38,10 @@ id: number
 name: string
 
 ---
-MovieActor
+ActorMovie
 ---
 id: number
 
 movie_id: number
 
 actor_id: number
-
----
-Reviews
----
-id: number
-
-movie_id: number
-
-start: number
-
-
