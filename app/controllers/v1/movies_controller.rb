@@ -9,7 +9,20 @@ class V1::MoviesController < ApplicationController
     render json: json_response(@movie)
   end
 
+  def create
+    movie = Movie.new movie_params
+    if movie.save
+      render status: 201, json: json_response(movie)
+    else
+      render status: 400, json: movie.errors
+    end
+  end
+
   private
+
+  def movie_params
+    params.permit(:title, :description, :director_id)
+  end
 
   def find_movie
     @movie = Movie.find params[:id]

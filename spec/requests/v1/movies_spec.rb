@@ -41,4 +41,26 @@ RSpec.describe "V1::Movies", type: :request do
       expect(response).to have_http_status(404)
     end
   end
+
+  describe 'create' do
+    let(:director) { create :director }
+
+    it '201' do
+      post '/v1/movies', params: {
+        title: 'Edward Scissorhands',
+        description: 'An artificial man, who was incompletely constructed and has scissors for hands, leads a solitary life. Then one day, a suburban lady meets him and introduces him to her world.',
+        director_id: director.id
+      }
+      expect(response).to have_http_status(201)
+    end
+
+    it '400' do
+      post '/v1/movies'
+      expect(response).to have_http_status(400)
+      body = JSON.parse(response.body)
+      expect(body['director'].first).to match('must exist')
+      expect(body['description'].first).to match("can't be blank")
+      expect(body['title'].first).to match("can't be blank")
+    end
+  end
 end
