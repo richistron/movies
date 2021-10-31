@@ -2,6 +2,10 @@
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
 # Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+
+director = Director.create! name: 'Tim burton'
+movie = Movie.create! title: 'Batman (1989)',
+                      description: 'The Dark Knight of Gotham City begins his war on crime with his first major enemy being Jack Napier, a criminal who becomes the clownishly homicidal Joker.',
+                      director: director
+actor = Actor.create! name: 'Michael Keaton'
+Cast.create! movie: movie, actor: actor
